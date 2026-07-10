@@ -1,8 +1,7 @@
 import { 
   BookOpen, CalendarDays, CreditCard, LogOut, Users, 
   Search, Bell, Mail, HelpCircle, Settings, Layers, 
-  UserSquare2, Package, BookType, ClipboardList, CheckSquare, 
-  FileText, Banknote, LineChart, UserCircle
+  UserSquare2, Package, BookType, UserCircle
 } from "lucide-react";
 import { logoutAction } from "@/lib/auth/actions";
 import { roleLabels, type UserRole } from "@/lib/auth/roles";
@@ -12,30 +11,35 @@ type AppShellProps = {
   role: UserRole;
   email: string;
   title: string;
+  activeNav?: string;
   children: React.ReactNode;
 };
 
 // Original Sprint 1 Navigation scope
 const navigation = {
   admin: [
-    { label: "Dashboard", icon: BookOpen, active: true },
-    { label: "Siswa", icon: Users },
-    { label: "Jadwal", icon: CalendarDays },
-    { label: "Pembayaran", icon: CreditCard }
+    { label: "Dashboard", icon: BookOpen, href: "/admin/dashboard" },
+    { label: "Siswa", icon: Users, href: "/admin/siswa" },
+    { label: "Mentor", icon: UserSquare2, href: "/admin/mentor" },
+    { label: "Orang Tua", icon: UserCircle, href: "/admin/orang-tua" },
+    { label: "Paket", icon: Package, href: "/admin/paket" },
+    { label: "Mata Pelajaran", icon: BookType, href: "/admin/mata-pelajaran" },
+    { label: "Jadwal", icon: CalendarDays, href: "#" },
+    { label: "Pembayaran", icon: CreditCard, href: "#" }
   ],
   mentor: [
-    { label: "Dashboard", icon: BookOpen, active: true },
-    { label: "Jadwal", icon: CalendarDays },
-    { label: "Kelas", icon: Users }
+    { label: "Dashboard", icon: BookOpen, href: "/mentor/dashboard" },
+    { label: "Jadwal", icon: CalendarDays, href: "#" },
+    { label: "Kelas", icon: Users, href: "#" }
   ],
   parent: [
-    { label: "Dashboard", icon: BookOpen, active: true },
-    { label: "Jadwal Anak", icon: CalendarDays },
-    { label: "Invoice", icon: CreditCard }
+    { label: "Dashboard", icon: BookOpen, href: "/orang-tua/dashboard" },
+    { label: "Jadwal Anak", icon: CalendarDays, href: "#" },
+    { label: "Invoice", icon: CreditCard, href: "#" }
   ]
 };
 
-export function AppShell({ role, email, title, children }: AppShellProps) {
+export function AppShell({ role, email, title, activeNav, children }: AppShellProps) {
   return (
     <div className="min-h-screen bg-surface flex text-ink font-sans">
       
@@ -52,11 +56,11 @@ export function AppShell({ role, email, title, children }: AppShellProps) {
           <nav className="space-y-1">
             {navigation[role].map((item) => {
               const Icon = item.icon;
-              const isActive = (item as any).active;
+              const isActive = (activeNav ?? "Dashboard") === item.label;
               
               return (
                 <Link 
-                  href="#" 
+                  href={item.href} 
                   key={item.label}
                   className={`group flex items-center justify-between px-3 py-2.5 rounded-xl transition-all duration-200 ${
                     isActive 
@@ -93,6 +97,7 @@ export function AppShell({ role, email, title, children }: AppShellProps) {
         {/* Top Header */}
         <header className="sticky top-0 z-10 bg-surface/80 backdrop-blur-xl border-b border-slate-200/50 px-6 py-4 flex items-center justify-between">
           
+          <p className="mr-4 text-base font-semibold text-ink sm:hidden">{title}</p>
           {/* Search Bar */}
           <div className="flex-1 max-w-md hidden sm:flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm border border-slate-100 focus-within:border-brand/30 focus-within:ring-2 focus-within:ring-brand/10 transition">
             <Search size={16} className="text-slate-400" />
