@@ -7,6 +7,15 @@ export default async function AdminDashboardPage() {
 
   return (
     <AppShell role={user.role} email={user.email} title="Dashboard Admin">
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold tracking-tight text-ink mb-1">
+          Selamat Datang, Admin
+        </h1>
+        <p className="text-sm text-slate-500">
+          Sprint 1: Authentication & Role Management aktif.
+        </p>
+      </div>
+
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <SummaryCard label="Siswa Aktif" value="0" detail="Menunggu modul master data" />
         <SummaryCard label="Mentor" value="0" detail="Menunggu modul master data" />

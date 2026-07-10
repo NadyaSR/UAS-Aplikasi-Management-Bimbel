@@ -4,13 +4,12 @@
 
 :root {
   color-scheme: light;
-  background: #f7f8fa;
-  color: #16202a;
+  background: #F5F5F7;
+  color: #1D1D1F;
 }
 
 * {
   box-sizing: border-box;
-  font-family: 'Inter', ui-sans-serif, sans-serif !important;
 }
 
 body {
