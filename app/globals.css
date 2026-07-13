@@ -250,3 +250,77 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 0.6rem !important;
   }
 }
+@layer components {
+  .input {
+    @apply w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-ink outline-none focus:border-brand focus:ring-2 focus:ring-brand/10;
+  }
+}
+
+/* Custom Calendar Overrides for ScheduleCalendar */
+.custom-calendar .fc {
+  --fc-border-color: #F1F5F9;
+  --fc-today-bg-color: #F8FAFC;
+  --fc-page-bg-color: #ffffff;
+  font-family: inherit;
+}
+
+/* Remove outer border from calendar to blend with our custom container */
+.custom-calendar .fc-scrollgrid {
+  border: none !important;
+}
+.custom-calendar .fc-theme-standard td, 
+.custom-calendar .fc-theme-standard th {
+  border-color: #F1F5F9;
+}
+
+/* Day header styling (Sun, Mon, Tue...) */
+.custom-calendar .fc-col-header-cell {
+  background-color: #F8FAFC; /* Light gray/blue tint like in image */
+  padding: 12px 0;
+}
+.custom-calendar .fc-col-header-cell-cushion {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #475569;
+  text-decoration: none !important;
+}
+
+/* Day cell styling */
+.custom-calendar .fc-daygrid-day-top {
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 8px 12px;
+}
+.custom-calendar .fc-daygrid-day-number {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #64748B;
+  text-decoration: none !important;
+}
+
+/* Day cell wrapper padding for events */
+.custom-calendar .fc-daygrid-day-events {
+  padding: 0 8px 8px !important;
+}
+.custom-calendar .fc-daygrid-event-harness {
+  margin-top: 4px !important;
+}
+
+/* Event container override to let custom renderContent shine */
+.custom-calendar .fc-event {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+.custom-calendar .fc-event:focus::after {
+  display: none !important;
+}
+
+/* Enhance TimeGrid (Week/Day views) */
+.custom-calendar .fc-timegrid-slot {
+  height: 3rem !important; /* give more breathing room */
+}
+.custom-calendar .fc-timegrid-axis-cushion {
+  font-size: 0.75rem;
+  color: #94A3B8;
+}

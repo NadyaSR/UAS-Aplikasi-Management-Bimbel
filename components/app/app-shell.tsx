@@ -1,15 +1,16 @@
 import { 
   BookOpen, CalendarDays, CreditCard, LogOut, Users, 
-  Search, Bell, Mail, HelpCircle, Settings, Layers, 
-  UserSquare2, Package, BookType, UserCircle
+  Layers, UserSquare2, Package, BookType, UserCircle
 } from "lucide-react";
 import { logoutAction } from "@/lib/auth/actions";
-import { roleLabels, type UserRole } from "@/lib/auth/roles";
+import type { UserRole } from "@/lib/auth/roles";
 import Link from "next/link";
+import { TopBar } from "./top-bar";
 
 type AppShellProps = {
   role: UserRole;
   email: string;
+  name?: string;
   title: string;
   activeNav?: string;
   children: React.ReactNode;
@@ -24,22 +25,26 @@ const navigation = {
     { label: "Orang Tua", icon: UserCircle, href: "/admin/orang-tua" },
     { label: "Paket", icon: Package, href: "/admin/paket" },
     { label: "Mata Pelajaran", icon: BookType, href: "/admin/mata-pelajaran" },
-    { label: "Jadwal", icon: CalendarDays, href: "#" },
+    { label: "Kelas", icon: Layers, href: "/admin/kelas" },
+    { label: "Jadwal", icon: CalendarDays, href: "/admin/jadwal" },
+    { label: "Absensi", icon: UserSquare2, href: "/admin/absensi" },
     { label: "Pembayaran", icon: CreditCard, href: "#" }
   ],
   mentor: [
     { label: "Dashboard", icon: BookOpen, href: "/mentor/dashboard" },
     { label: "Jadwal", icon: CalendarDays, href: "#" },
-    { label: "Kelas", icon: Users, href: "#" }
+    { label: "Kelas", icon: Users, href: "#" },
+    { label: "Absensi", icon: UserSquare2, href: "/mentor/absensi" }
   ],
   parent: [
     { label: "Dashboard", icon: BookOpen, href: "/orang-tua/dashboard" },
     { label: "Jadwal Anak", icon: CalendarDays, href: "#" },
+    { label: "Absensi", icon: UserSquare2, href: "/orang-tua/absensi" },
     { label: "Invoice", icon: CreditCard, href: "#" }
   ]
 };
 
-export function AppShell({ role, email, title, activeNav, children }: AppShellProps) {
+export function AppShell({ role, email, name, title, activeNav, children }: AppShellProps) {
   return (
     <div className="min-h-screen bg-surface flex text-ink font-sans">
       
@@ -88,53 +93,19 @@ export function AppShell({ role, email, title, activeNav, children }: AppShellPr
             </form>
           </nav>
         </div>
-
       </aside>
 
       {/* Main Content Area */}
       <div className="flex-1 md:pl-[260px] flex flex-col min-h-screen">
         
-        {/* Top Header */}
-        <header className="sticky top-0 z-10 bg-surface/80 backdrop-blur-xl border-b border-slate-200/50 px-6 py-4 flex items-center justify-between">
-          
-          <p className="mr-4 text-base font-semibold text-ink sm:hidden">{title}</p>
-          {/* Search Bar */}
-          <div className="flex-1 max-w-md hidden sm:flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm border border-slate-100 focus-within:border-brand/30 focus-within:ring-2 focus-within:ring-brand/10 transition">
-            <Search size={16} className="text-slate-400" />
-            <input 
-              type="text" 
-              placeholder="Search..." 
-              className="bg-transparent border-none outline-none text-sm w-full text-slate-700 placeholder-slate-400"
-            />
-            <div className="flex items-center gap-1 text-[10px] text-slate-400 font-medium bg-slate-50 px-2 py-1 rounded">
-              <span className="font-sans">⌘</span>K
-            </div>
-          </div>
-          
-          {/* Right Actions */}
-          <div className="flex items-center gap-3 ml-auto">
-            <button className="w-9 h-9 flex items-center justify-center rounded-full text-slate-500 hover:bg-slate-200/50 transition">
-              <HelpCircle size={18} />
-            </button>
-            <button className="w-9 h-9 flex items-center justify-center rounded-full text-slate-500 hover:bg-slate-200/50 transition relative">
-              <Mail size={18} />
-            </button>
-            <button className="w-9 h-9 flex items-center justify-center rounded-full text-slate-500 hover:bg-slate-200/50 transition relative">
-              <Bell size={18} />
-              <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-surface"></span>
-            </button>
-            
-            <div className="h-6 w-px bg-slate-200 mx-1"></div>
-            
-            {/* User Avatar */}
-            <button className="flex items-center gap-2 hover:opacity-80 transition ml-1">
-              <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-brand to-cyan-400 flex items-center justify-center text-white font-medium text-sm shadow-sm">
-                {email.charAt(0).toUpperCase()}
-              </div>
-            </button>
-          </div>
-        </header>
-
+        <TopBar 
+          title={title} 
+          email={email} 
+          name={name} 
+          role={role} 
+          navigation={navigation[role].map(({ label, href }) => ({ label, href }))} 
+        />
+        
         {/* Page Content */}
         <main className="flex-1 p-6 md:p-8">
           {children}

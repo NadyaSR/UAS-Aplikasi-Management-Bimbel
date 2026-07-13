@@ -68,7 +68,12 @@ export const loginAction = async (
 
 export const logoutAction = async () => {
   const supabase = await createSupabaseServerClient();
-  await supabase.auth.signOut();
+  const { error } = await supabase.auth.signOut();
+
+  if (error) {
+    throw new Error("Logout gagal. Silakan coba lagi.");
+  }
+
   redirect("/login");
 };
 

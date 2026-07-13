@@ -7,6 +7,7 @@ export type SessionUser = {
   id: string;
   email: string;
   role: UserRole;
+  name?: string;
 };
 
 export const getSessionUser = cache(async (): Promise<SessionUser | null> => {
@@ -28,7 +29,8 @@ export const getSessionUser = cache(async (): Promise<SessionUser | null> => {
   return {
     id: user.id,
     email: user.email,
-    role
+    role,
+    name: user.user_metadata?.full_name as string | undefined
   };
 });
 
