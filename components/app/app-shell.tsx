@@ -1,6 +1,7 @@
 import { 
   BookOpen, CalendarDays, CreditCard, LogOut, Users, 
-  Layers, UserSquare2, Package, BookType, UserCircle
+  Layers, UserSquare2, Package, BookType, UserCircle,
+  ReceiptText
 } from "lucide-react";
 import { logoutAction } from "@/lib/auth/actions";
 import type { UserRole } from "@/lib/auth/roles";
@@ -16,7 +17,7 @@ type AppShellProps = {
   children: React.ReactNode;
 };
 
-// Original Sprint 1 Navigation scope
+// Sprint 5: Invoice & Pembayaran navigation activated
 const navigation = {
   admin: [
     { label: "Dashboard", icon: BookOpen, href: "/admin/dashboard" },
@@ -28,7 +29,8 @@ const navigation = {
     { label: "Kelas", icon: Layers, href: "/admin/kelas" },
     { label: "Jadwal", icon: CalendarDays, href: "/admin/jadwal" },
     { label: "Absensi", icon: UserSquare2, href: "/admin/absensi" },
-    { label: "Pembayaran", icon: CreditCard, href: "#" }
+    { label: "Invoice", icon: ReceiptText, href: "/admin/invoice" },
+    { label: "Pembayaran", icon: CreditCard, href: "/admin/pembayaran" },
   ],
   mentor: [
     { label: "Dashboard", icon: BookOpen, href: "/mentor/dashboard" },
@@ -38,9 +40,9 @@ const navigation = {
   ],
   parent: [
     { label: "Dashboard", icon: BookOpen, href: "/orang-tua/dashboard" },
-    { label: "Jadwal Anak", icon: CalendarDays, href: "#" },
+    { label: "Jadwal Anak", icon: CalendarDays, href: "/orang-tua/jadwal" },
     { label: "Absensi", icon: UserSquare2, href: "/orang-tua/absensi" },
-    { label: "Invoice", icon: CreditCard, href: "#" }
+    { label: "Invoice", icon: ReceiptText, href: "/orang-tua/invoice" },
   ]
 };
 

@@ -13,7 +13,7 @@ export default async function ParentDashboardPage() {
 
       {/* Summary Cards */}
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4 mb-8">
-        <SummaryCard label="Status Pembayaran" value="-" detail="Menunggu modul invoice" />
+        <SummaryCard label="Status Pembayaran" value={metrics.paymentStatus} detail={metrics.paymentDetail} />
         <SummaryCard label="Jadwal Anak Hari Ini" value={String(metrics.schedule)} detail={`${metrics.children} anak terdaftar`} />
         <SummaryCard label="Kehadiran Anak" value={metrics.attendance} detail="Akumulasi kehadiran" />
         <SummaryCard label="Nilai Terbaru" value="-" detail="Menunggu modul evaluasi" />
